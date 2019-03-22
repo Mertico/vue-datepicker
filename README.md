@@ -1,4 +1,4 @@
-# vue-datapicker
+# vue-datepicker
 
 ## Project setup
 ```

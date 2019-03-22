@@ -1,28 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <DatePicker ref="DatePickerPreset" v-model="datePreset"/>
+    <div @click="$refs.DatePickerPreset.show()" >Выбраная дата: {{datePreset}}</div>
+
+    <DatePicker ref="DatePickerIn" changeRange="in" v-model="date"/>
+    <div @click="$refs.DatePickerIn.show()" >Только левая дата: {{date}}</div>
+    <DatePicker ref="DatePickerOut" changeRange="out" v-model="date"/>
+    <div @click="$refs.DatePickerOut.show()" >Только правая дата: {{date}}</div>
+
+    <DatePicker ref="DatePicker2" lang="en" v-model="date2"/>
+    <div @click="$refs.DatePicker2.show()">Choice date #2: {{date2}}</div>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import DatePicker from "./DatePicker";
 
 export default {
   name: "app",
   components: {
-    HelloWorld
+    DatePicker,
+  },
+  created(){
+
+  },
+  data() {
+    return {
+      datePreset: { in: new Date(), out: new Date(
+          new Date().getFullYear(),
+          new Date().getMonth(),
+          new Date().getDate()+2
+        )},
+      date: {},
+      date2: {}
+    }
   }
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
