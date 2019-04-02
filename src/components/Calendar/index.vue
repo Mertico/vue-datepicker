@@ -79,9 +79,13 @@ export default {
           this.date.out &&
           value.getTime() > this.date.out.getTime()
         ) {
-          let tmp = this.date.out;
-          this.date.out = value;
-          value = tmp;
+          if(this.$parent.$parent.changeRange == "in") {
+            this.date.out = null;
+          } else {
+            let tmp = this.date.out;
+            this.date.out = value;
+            value = tmp;
+          }
         }
         this.$set(this.date, 'in', value)
         this.$emit("input", this.date);
@@ -94,9 +98,14 @@ export default {
       set(value) {
         // Меняем местами даты если они выбраны в обратном порядке
         if (value && this.date.in && value.getTime() < this.date.in.getTime()) {
-          let tmp = this.date.in;
-          this.date.in = value;
-          value = tmp;
+          if(this.$parent.$parent.changeRange == "out") {
+            this.date.in = null;
+          } else {
+            let tmp = this.date.in;
+            this.date.in = value;
+            value = tmp;
+          }
+
         }
         this.$set(this.date, 'out', value)
         this.$emit("input", this.date);
