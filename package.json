@@ -27,7 +27,7 @@
   "main": "lib/vue-datepicker.common.js",
   "unpkg": "lib/vue-datepicker.min.js",
   "files": [
-    "lib"
+    "lib", "src"
   ],
   "dependencies": {
     "lodash-es": "^4.17.11",
