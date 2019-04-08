@@ -146,7 +146,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .calendar {
   user-select: none;
   display: flex;

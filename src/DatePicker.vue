@@ -153,7 +153,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .calendar--more {
   text-align: center;
   padding: 8px 15px;
