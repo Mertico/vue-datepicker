@@ -12,6 +12,7 @@
       v-model="date"
       :lang="Translation['lang']"
       :changeRange="changeRange"
+      :type="type"
 
       ref="CalendarRef"
     />
@@ -38,6 +39,13 @@ export default {
     BaseModal
   },
   props: {
+    type: {
+      default: 'range',
+      type: String,
+      validator(value) {
+        return ['single', 'range'].includes(value);
+      }
+    },
     lang: {
       default: 'ru',
       type: String,
@@ -61,14 +69,20 @@ export default {
     date: {
       deep: true,
       handler() {
-        if (this.date.out && this.date.in) {
+        if (this.date instanceof Object && this.date.out && this.date.in) {
+          this.$emit("input", this.date);
+          this.$emit("change", this.date);
+        }
+        if (this.date instanceof Date) {
           this.$emit("input", this.date);
           this.$emit("change", this.date);
         }
       }
     },
     "$attrs.value": function() {
-      if(this.$attrs.value) {
+      if(this.$attrs.value instanceof Date) {
+        this.date = this.$attrs.value;
+      } else if (this.$attrs.value  instanceof Object) {
         this.$set(this.date, 'in', this.$attrs.value.in)
         this.$set(this.date, 'out', this.$attrs.value.out)
       }
@@ -106,6 +120,7 @@ export default {
     reset() {
       this.$set(this.date, 'in', null)
       this.$set(this.date, 'out', null)
+      this.$set(this.date, 'single', null)
       this.$refs.CalendarRef.reset()
       this.$emit("input", this.date);
       this.$emit("change", this.date);
@@ -128,7 +143,9 @@ export default {
     },
   },
   mounted() {
-    if(this.$attrs.value) {
+    if(this.$attrs.value instanceof Date) {
+      this.$set(this.date, 'single', this.$attrs.value)
+    } else if (this.$attrs.value  instanceof Object) {
       this.$set(this.date, 'in', this.$attrs.value.in)
       this.$set(this.date, 'out', this.$attrs.value.out)
     }

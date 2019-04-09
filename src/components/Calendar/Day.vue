@@ -35,6 +35,9 @@ export default {
     dateOut() {
       return this.$parent.$parent.dateOut;
     },
+    dateSingle() {
+      return this.$parent.$parent.dateSingle;
+    },
     timeCurrentDay() {
       return new Date(
         this.dateMonth.getFullYear(),
@@ -55,7 +58,12 @@ export default {
           this.timeCurrentDay.getFullYear() == this.dateOut.getFullYear() &&
           this.timeCurrentDay.getMonth() == this.dateOut.getMonth() &&
           this.timeCurrentDay.getDate() == this.dateOut.getDate()
-      return isLeft || isRight;
+      let isSingle =
+        this.dateSingle &&
+          this.timeCurrentDay.getFullYear() == this.dateSingle.getFullYear() &&
+          this.timeCurrentDay.getMonth() == this.dateSingle.getMonth() &&
+          this.timeCurrentDay.getDate() == this.dateSingle.getDate()
+      return isLeft || isRight || isSingle;
     },
     isSelect() {
       //  Если дата правее выбраной левой части
@@ -89,6 +97,17 @@ export default {
       this.$parent.$parent.hoverDate = null;
     },
     onClickDay() {
+      if(this.$parent.$parent.type == "range") {
+        this.rangeDayClick()
+      }
+      if(this.$parent.$parent.type == "single") {
+        this.singleDayClick()
+      }
+    },
+    singleDayClick() {
+      this.$parent.$parent.dateSingle = this.timeCurrentDay;
+    },
+    rangeDayClick() {
       if (!this.dateIn || (this.$parent.$parent.changeRange == "in" && this.dateOut && this.timeCurrentDay.getTime() != this.dateOut.getTime())) {
         this.$parent.$parent.dateIn = this.timeCurrentDay;
         return;

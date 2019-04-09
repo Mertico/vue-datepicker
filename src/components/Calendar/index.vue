@@ -21,6 +21,13 @@ export default {
     Month
   },
   props: {
+    type: {
+      default: 'range',
+      type: String,
+      validator(value) {
+        return ['single', 'range'].includes(value);
+      }
+    },
     lang: {
       default: 'ru-RU',
       type: String,
@@ -110,12 +117,22 @@ export default {
         this.$set(this.date, 'out', value)
         this.$emit("input", this.date);
       }
-    }
+    },
+    dateSingle: {
+      get() {
+        return this.date.single;
+      },
+      set(value) {
+        this.$set(this.date, 'single', value)
+        this.$emit("input", this.date.single);
+      }
+    },
   },
   methods: {
     reset() {
       this.$set(this.date, 'in', null)
       this.$set(this.date, 'out', null)
+      this.$set(this.date, 'single', null)
     }
   },
   watch: {
@@ -123,7 +140,9 @@ export default {
       deep: true,
       immediate: true,
       handler() {
-        if(this.$attrs.value) {
+        if(this.$attrs.value instanceof Date) {
+          this.date.single = this.$attrs.value
+        } else if (this.$attrs.value  instanceof Object) {
           this.date.in = this.$attrs.value.in
           this.date.out = this.$attrs.value.out
         }
@@ -132,14 +151,19 @@ export default {
   },
   mounted() {
     // Подстановка даты
-    this.date.in = this.$attrs.value.in;
-    this.date.out = this.$attrs.value.out;
+    if(this.$attrs.value instanceof Date) {
+      this.date.single = this.$attrs.value
+    } else if (this.$attrs.value  instanceof Object) {
+      this.date.in = this.$attrs.value.in
+      this.date.out = this.$attrs.value.out
+    }
   },
   data() {
     return {
       date: {
         in: null,
-        out: null
+        out: null,
+        single: null,
       },
       hoverDate: null
     };

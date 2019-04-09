@@ -10,6 +10,11 @@
 
     <DatePicker ref="DatePicker2" lang="en" v-model="date2"/>
     <div @click="$refs.DatePicker2.show()">Choice date #2: {{date2}}</div>
+
+
+
+    <DatePicker ref="DatePickerSingle" lang="en" type="single" v-model="dateSingle"/>
+    <div @click="$refs.DatePickerSingle.show()">Single: {{dateSingle}}</div>
   </div>
 </template>
 
@@ -32,7 +37,8 @@ export default {
           new Date().getDate()+2
         )},
       date: {},
-      date2: {}
+      date2: {},
+      dateSingle: {}
     }
   }
 };
