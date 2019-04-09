@@ -176,6 +176,7 @@ export default {
   user-select: none;
   display: flex;
   justify-content: space-between;
+  line-height: 1;
   &.vertical {
     align-items: center;
     flex-direction: column;
