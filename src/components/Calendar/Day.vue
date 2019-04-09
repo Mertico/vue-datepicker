@@ -8,6 +8,7 @@
       disabled: isDisabled
     }"
     @click="onClickDay()"
+    @mouseover="onHoverSet" @mouseleave="onHoverRemove"
   >
     {{ date }}
   </td>
@@ -81,6 +82,12 @@ export default {
     }
   },
   methods: {
+    onHoverSet() {
+      this.$parent.$parent.hoverDate = this.timeCurrentDay;
+    },
+    onHoverRemove() {
+      this.$parent.$parent.hoverDate = null;
+    },
     onClickDay() {
       if (!this.dateIn || (this.$parent.$parent.changeRange == "in" && this.dateOut && this.timeCurrentDay.getTime() != this.dateOut.getTime())) {
         this.$parent.$parent.dateIn = this.timeCurrentDay;
@@ -131,6 +138,11 @@ export default {
     background-color: rgb(111, 167, 89);
     color: white;
     border-color: rgb(111, 167, 89);
+  }
+  &:hover {
+    background-color: rgba(111, 167, 89, 0.75);
+    color: white;
+    border-color: rgba(111, 167, 89, 0.75);
   }
   &.current-date {
     position: relative;

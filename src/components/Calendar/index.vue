@@ -140,7 +140,8 @@ export default {
       date: {
         in: null,
         out: null
-      }
+      },
+      hoverDate: null
     };
   }
 };
