@@ -63,6 +63,10 @@ export default {
         return [null, "in", "out"].includes(value);
       }
     },
+    i18n: {
+      type: Object,
+      default: ()=> ({}),
+    }
 
   },
   watch: {
@@ -163,7 +167,7 @@ export default {
       countMonth: 2,
       beginDate: new Date(),
       date: {},
-      Translation: Translation[this.lang],
+      Translation: {...Translation[this.lang], ...this.i18n[this.lang]},
       isMobile: this.handleWindowResize()
     };
   }

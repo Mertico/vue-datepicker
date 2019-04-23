@@ -25,7 +25,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "main": "lib/vue-datepicker.common.js",
-  "unpkg": "lib/vue-datepicker.min.js",
+  "unpkg": "lib/vue-datepicker.umd.min.js",
   "files": [
     "lib", "src"
   ],

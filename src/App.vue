@@ -15,6 +15,9 @@
 
     <DatePicker ref="DatePickerSingle" lang="en" type="single" v-model="dateSingle"/>
     <div @click="$refs.DatePickerSingle.show()">Single: {{dateSingle}}</div>
+
+    <DatePicker ref="DatePickerTranslation" lang="en" type="single" :i18n="i18n" v-model="dateTranslation"/>
+    <div @click="$refs.DatePickerTranslation.show()">Translation: {{dateTranslation}}</div>
   </div>
 </template>
 
@@ -31,6 +34,7 @@ export default {
   },
   data() {
     return {
+      i18n: {en: { reset: 'Свой текст удаления' } },
       datePreset: { in: new Date(), out: new Date(
           new Date().getFullYear(),
           new Date().getMonth(),
@@ -38,7 +42,8 @@ export default {
         )},
       date: {},
       date2: {},
-      dateSingle: {}
+      dateSingle: {},
+      dateTranslation: {}
     }
   }
 };
