@@ -145,6 +145,7 @@ export default {
   cursor: pointer;
   border: 1px solid rgb(228, 231, 231);
   box-sizing: border-box;
+  vertical-align: middle;
   &.disabled {
     pointer-events: none;
     opacity: 0.25;
