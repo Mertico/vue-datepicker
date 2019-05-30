@@ -7,7 +7,7 @@
     }"
   >
     <template v-for="date in dateMonth">
-      <Month :dateMonth="date" :lang="lang" />
+      <Month :dateMonth="date" :lang="lang" :startDisable="startDisable" />
     </template>
   </div>
 </template>
@@ -55,6 +55,11 @@ export default {
       validator(value) {
         return [null, "in", "out"].includes(value);
       }
+    },
+    startDisable: {
+      type: Date,
+      required: true,
+      default: () => new Date(),
     },
   },
   computed: {

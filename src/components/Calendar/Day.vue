@@ -26,7 +26,12 @@ export default {
     date: {
       type: Number,
       required: true
-    }
+    },
+    startDisable: {
+      type: Date,
+      required: true,
+      default: () => new Date(),
+    },
   },
   computed: {
     dateIn() {
@@ -83,9 +88,8 @@ export default {
       );
     },
     isDisabled() {
-      let toDay = new Date();
       return (
-        this.timeCurrentDay.getTime() + 86400000 < toDay.getTime() // -1 день (в мсек)
+        this.timeCurrentDay.getTime() + 86400000 < this.startDisable.getTime() // -1 день (в мсек)
       );
     }
   },

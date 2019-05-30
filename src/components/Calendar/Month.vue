@@ -18,6 +18,7 @@
           v-if="date"
           :key="date"
           v-for="date in weeks"
+          :startDisable="startDisable"
         />
         <td v-else></td>
       </tr>
@@ -80,6 +81,11 @@ export default {
     dateMonth: {
       type: Date,
       required: true
+    },
+    startDisable: {
+      type: Date,
+      required: true,
+      default: () => new Date(),
     },
     lang: {
       default: 'ru-RU',

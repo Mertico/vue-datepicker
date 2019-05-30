@@ -12,11 +12,19 @@
     <div @click="$refs.DatePicker2.show()">Choice date #2: {{date2}}</div>
 
 
+    <DatePicker ref="DatePickerstartDisable" v-model="datestartDisable" :startDisable="new Date('2019-02-10')"/>
+    <div @click="$refs.DatePickerstartDisable.show()" >Выбраная дата ВЫКЛ даты: {{datestartDisable}}</div>
+
+
+
 
     <DatePicker ref="DatePickerSingle" lang="en" type="single" v-model="dateSingle"/>
     <div @click="$refs.DatePickerSingle.show()">Single: {{dateSingle}}</div>
 
     <DatePicker ref="DatePickerTranslation" lang="en" type="single" :i18n="i18n" v-model="dateTranslation"/>
+    <div @click="$refs.DatePickerTranslation.show()">Translation: {{dateTranslation}}</div>
+
+    <DatePicker ref="DatePickerTranslation" lang="en" type="single" :i18n="i18n" v-model="dateTranslation" />
     <div @click="$refs.DatePickerTranslation.show()">Translation: {{dateTranslation}}</div>
   </div>
 </template>
@@ -40,6 +48,7 @@ export default {
           new Date().getMonth(),
           new Date().getDate()+2
         )},
+      datestartDisable: {},
       date: {},
       date2: {},
       dateSingle: {},

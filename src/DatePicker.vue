@@ -13,6 +13,7 @@
       :lang="Translation['lang']"
       :changeRange="changeRange"
       :type="type"
+      :startDisable="startDisable"
 
       ref="CalendarRef"
     />
@@ -56,6 +57,11 @@ export default {
     showHeader: {
       default: true,
       type: Boolean
+    },
+    startDisable: {
+      type: Date,
+      required: true,
+      default: () => new Date(),
     },
     changeRange: {
       default: null,
