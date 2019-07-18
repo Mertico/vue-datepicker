@@ -22,17 +22,17 @@ export default {
   },
   props: {
     type: {
-      default: 'range',
+      default: "range",
       type: String,
       validator(value) {
-        return ['single', 'range'].includes(value);
+        return ["single", "range"].includes(value);
       }
     },
     lang: {
-      default: 'ru-RU',
+      default: "ru-RU",
       type: String,
       validator(value) {
-        return ['ru-RU', 'en-US'].includes(value);
+        return ["ru-RU", "en-US"].includes(value);
       }
     },
     beginDate: {
@@ -58,9 +58,8 @@ export default {
     },
     startDisable: {
       type: Date,
-      required: true,
-      default: () => new Date().toJSON(),
-    },
+      default: () => new Date()
+    }
   },
   computed: {
     dateMonth() {
@@ -91,7 +90,7 @@ export default {
           this.date.out &&
           value.getTime() > this.date.out.getTime()
         ) {
-          if(this.$parent.$parent.changeRange == "in") {
+          if (this.$parent.$parent.changeRange == "in") {
             this.date.out = null;
           } else {
             let tmp = this.date.out;
@@ -99,7 +98,7 @@ export default {
             value = tmp;
           }
         }
-        this.$set(this.date, 'in', value)
+        this.$set(this.date, "in", value);
         this.$emit("input", this.date);
       }
     },
@@ -110,16 +109,15 @@ export default {
       set(value) {
         // Меняем местами даты если они выбраны в обратном порядке
         if (value && this.date.in && value.getTime() < this.date.in.getTime()) {
-          if(this.$parent.$parent.changeRange == "out") {
+          if (this.$parent.$parent.changeRange == "out") {
             this.date.in = null;
           } else {
             let tmp = this.date.in;
             this.date.in = value;
             value = tmp;
           }
-
         }
-        this.$set(this.date, 'out', value)
+        this.$set(this.date, "out", value);
         this.$emit("input", this.date);
       }
     },
@@ -128,16 +126,16 @@ export default {
         return this.date.single;
       },
       set(value) {
-        this.$set(this.date, 'single', value)
+        this.$set(this.date, "single", value);
         this.$emit("input", this.date.single);
       }
-    },
+    }
   },
   methods: {
     reset() {
-      this.$set(this.date, 'in', null)
-      this.$set(this.date, 'out', null)
-      this.$set(this.date, 'single', null)
+      this.$set(this.date, "in", null);
+      this.$set(this.date, "out", null);
+      this.$set(this.date, "single", null);
     }
   },
   watch: {
@@ -145,22 +143,22 @@ export default {
       deep: true,
       immediate: true,
       handler() {
-        if(this.$attrs.value instanceof Date) {
-          this.date.single = this.$attrs.value
-        } else if (this.$attrs.value  instanceof Object) {
-          this.date.in = this.$attrs.value.in
-          this.date.out = this.$attrs.value.out
+        if (this.$attrs.value instanceof Date) {
+          this.date.single = this.$attrs.value;
+        } else if (this.$attrs.value instanceof Object) {
+          this.date.in = this.$attrs.value.in;
+          this.date.out = this.$attrs.value.out;
         }
       }
-    },
+    }
   },
   mounted() {
     // Подстановка даты
-    if(this.$attrs.value instanceof Date) {
-      this.date.single = this.$attrs.value
-    } else if (this.$attrs.value  instanceof Object) {
-      this.date.in = this.$attrs.value.in
-      this.date.out = this.$attrs.value.out
+    if (this.$attrs.value instanceof Date) {
+      this.date.single = this.$attrs.value;
+    } else if (this.$attrs.value instanceof Object) {
+      this.date.in = this.$attrs.value.in;
+      this.date.out = this.$attrs.value.out;
     }
   },
   data() {
@@ -168,7 +166,7 @@ export default {
       date: {
         in: null,
         out: null,
-        single: null,
+        single: null
       },
       hoverDate: null
     };

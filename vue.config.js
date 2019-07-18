@@ -81,7 +81,6 @@ module.exports = {
   // : '/'
   publicPath: "./"
 
-
   // entry = {
   //   Foo: 'src/components/Foo/index.js', // <component-name>: <component-entry-path>
   //   Bar: 'src/components/Bar/index.js',

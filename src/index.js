@@ -8,6 +8,6 @@ const install = Vue => {
   Vue.component("Month", Month);
 };
 
-export default DatePicker
+export default DatePicker;
 
 export { DatePicker, Calendar, Month };

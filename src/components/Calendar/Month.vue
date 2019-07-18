@@ -85,15 +85,15 @@ export default {
     startDisable: {
       type: Date,
       required: true,
-      default: () => new Date(),
+      default: () => new Date()
     },
     lang: {
-      default: 'ru-RU',
+      default: "ru-RU",
       type: String,
       validator(value) {
-        return ['ru-RU', 'en-US'].includes(value);
+        return ["ru-RU", "en-US"].includes(value);
       }
-    },
+    }
   }
 };
 </script>

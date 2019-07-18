@@ -14,11 +14,14 @@
       :changeRange="changeRange"
       :type="type"
       :startDisable="startDisable"
-
       ref="CalendarRef"
     />
     <div class="calendar-footer">
-      <div class="calendar--reset" @click="reset" :class="{ 'calendar--reset-visible': date}">
+      <div
+        class="calendar--reset"
+        @click="reset"
+        :class="{ 'calendar--reset-visible': date }"
+      >
         {{ Translation["reset"] }}
       </div>
       <div class="calendar--more" @click="more" v-if="isMobile">
@@ -41,17 +44,17 @@ export default {
   },
   props: {
     type: {
-      default: 'range',
+      default: "range",
       type: String,
       validator(value) {
-        return ['single', 'range'].includes(value);
+        return ["single", "range"].includes(value);
       }
     },
     lang: {
-      default: 'ru',
+      default: "ru",
       type: String,
       validator(value) {
-        return ['ru', 'en'].includes(value);
+        return ["ru", "en"].includes(value);
       }
     },
     showHeader: {
@@ -60,7 +63,7 @@ export default {
     },
     startDisable: {
       type: Date,
-      default: () => new Date().toJSON(),
+      default: () => new Date()
     },
     changeRange: {
       default: null,
@@ -70,9 +73,8 @@ export default {
     },
     i18n: {
       type: Object,
-      default: ()=> ({}),
+      default: () => ({})
     }
-
   },
   watch: {
     date: {
@@ -89,20 +91,18 @@ export default {
       }
     },
     "$attrs.value": function() {
-      if(this.$attrs.value instanceof Date) {
+      if (this.$attrs.value instanceof Date) {
         this.date = this.$attrs.value;
-      } else if (this.$attrs.value  instanceof Object) {
-        this.$set(this.date, 'in', this.$attrs.value.in)
-        this.$set(this.date, 'out', this.$attrs.value.out)
+      } else if (this.$attrs.value instanceof Object) {
+        this.$set(this.date, "in", this.$attrs.value.in);
+        this.$set(this.date, "out", this.$attrs.value.out);
       }
     }
   },
   methods: {
     toggle() {
-      if(!this.$refs.baseModalRef.visible)
-        this.$emit("show");
-      else
-        this.$emit("close");
+      if (!this.$refs.baseModalRef.visible) this.$emit("show");
+      else this.$emit("close");
       this.$refs.baseModalRef.toggle();
     },
     show() {
@@ -127,18 +127,17 @@ export default {
       this.countMonth += 6;
     },
     reset() {
-      this.$set(this.date, 'in', null)
-      this.$set(this.date, 'out', null)
-      this.$set(this.date, 'single', null)
-      this.$refs.CalendarRef.reset()
+      this.$set(this.date, "in", null);
+      this.$set(this.date, "out", null);
+      this.$set(this.date, "single", null);
+      this.$refs.CalendarRef.reset();
       this.$emit("input", this.date);
       this.$emit("change", this.date);
     },
     handleWindowResize() {
       if (window.innerWidth <= 768) {
         this.isMobile = true;
-        if(this.countMonth < 30)
-          this.countMonth = 30;
+        if (this.countMonth < 30) this.countMonth = 30;
       } else {
         this.isMobile = false;
         this.countMonth = 2;
@@ -149,20 +148,18 @@ export default {
   computed: {
     typeCalendar() {
       return this.isMobile ? "vertical" : "horizontal";
-    },
+    }
   },
   mounted() {
-    if(this.$attrs.value instanceof Date) {
-      this.$set(this.date, 'single', this.$attrs.value)
-    } else if (this.$attrs.value  instanceof Object) {
-      this.$set(this.date, 'in', this.$attrs.value.in)
-      this.$set(this.date, 'out', this.$attrs.value.out)
+    if (this.$attrs.value instanceof Date) {
+      this.$set(this.date, "single", this.$attrs.value);
+    } else if (this.$attrs.value instanceof Object) {
+      this.$set(this.date, "in", this.$attrs.value.in);
+      this.$set(this.date, "out", this.$attrs.value.out);
     }
     window.addEventListener("resize", this.handleWindowResize);
-    if(this.isMobile)
-      this.countMonth = 30;
-    else
-      this.countMonth = 2;
+    if (this.isMobile) this.countMonth = 30;
+    else this.countMonth = 2;
   },
   destroyed() {
     window.removeEventListener("resize", this.handleWindowResize);
@@ -172,7 +169,7 @@ export default {
       countMonth: 2,
       beginDate: new Date(),
       date: {},
-      Translation: {...Translation[this.lang], ...this.i18n[this.lang]},
+      Translation: { ...Translation[this.lang], ...this.i18n[this.lang] },
       isMobile: this.handleWindowResize()
     };
   }
@@ -227,7 +224,7 @@ export default {
   background-color: red;
   height: 55px;
   padding: 15px 20px;
-  box-shadow: 0 -2px 3px 0 rgba(0,0,0,.05);
+  box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.05);
   background-color: #fff;
   box-sizing: border-box;
 }

@@ -8,7 +8,8 @@
       disabled: isDisabled
     }"
     @click="onClickDay()"
-    @mouseover="onHoverSet" @mouseleave="onHoverRemove"
+    @mouseover="onHoverSet"
+    @mouseleave="onHoverRemove"
   >
     {{ date }}
   </td>
@@ -30,8 +31,8 @@ export default {
     startDisable: {
       type: Date,
       required: true,
-      default: () => new Date(),
-    },
+      default: () => new Date()
+    }
   },
   computed: {
     dateIn() {
@@ -54,20 +55,20 @@ export default {
       // Если выбрана левая часть
       let isLeft =
         this.dateIn &&
-          this.timeCurrentDay.getFullYear() == this.dateIn.getFullYear() &&
-          this.timeCurrentDay.getMonth() == this.dateIn.getMonth() &&
-          this.timeCurrentDay.getDate() == this.dateIn.getDate()
+        this.timeCurrentDay.getFullYear() == this.dateIn.getFullYear() &&
+        this.timeCurrentDay.getMonth() == this.dateIn.getMonth() &&
+        this.timeCurrentDay.getDate() == this.dateIn.getDate();
       // Если выбрана как правая часть
       let isRight =
         this.dateOut &&
-          this.timeCurrentDay.getFullYear() == this.dateOut.getFullYear() &&
-          this.timeCurrentDay.getMonth() == this.dateOut.getMonth() &&
-          this.timeCurrentDay.getDate() == this.dateOut.getDate()
+        this.timeCurrentDay.getFullYear() == this.dateOut.getFullYear() &&
+        this.timeCurrentDay.getMonth() == this.dateOut.getMonth() &&
+        this.timeCurrentDay.getDate() == this.dateOut.getDate();
       let isSingle =
         this.dateSingle &&
-          this.timeCurrentDay.getFullYear() == this.dateSingle.getFullYear() &&
-          this.timeCurrentDay.getMonth() == this.dateSingle.getMonth() &&
-          this.timeCurrentDay.getDate() == this.dateSingle.getDate()
+        this.timeCurrentDay.getFullYear() == this.dateSingle.getFullYear() &&
+        this.timeCurrentDay.getMonth() == this.dateSingle.getMonth() &&
+        this.timeCurrentDay.getDate() == this.dateSingle.getDate();
       return isLeft || isRight || isSingle;
     },
     isSelect() {
@@ -101,18 +102,23 @@ export default {
       this.$parent.$parent.hoverDate = null;
     },
     onClickDay() {
-      if(this.$parent.$parent.type == "range") {
-        this.rangeDayClick()
+      if (this.$parent.$parent.type == "range") {
+        this.rangeDayClick();
       }
-      if(this.$parent.$parent.type == "single") {
-        this.singleDayClick()
+      if (this.$parent.$parent.type == "single") {
+        this.singleDayClick();
       }
     },
     singleDayClick() {
       this.$parent.$parent.dateSingle = this.timeCurrentDay;
     },
     rangeDayClick() {
-      if (!this.dateIn || (this.$parent.$parent.changeRange == "in" && this.dateOut && this.timeCurrentDay.getTime() != this.dateOut.getTime())) {
+      if (
+        !this.dateIn ||
+        (this.$parent.$parent.changeRange == "in" &&
+          this.dateOut &&
+          this.timeCurrentDay.getTime() != this.dateOut.getTime())
+      ) {
         this.$parent.$parent.dateIn = this.timeCurrentDay;
         return;
       } else {

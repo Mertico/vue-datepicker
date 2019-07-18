@@ -10,7 +10,7 @@
     >
       <template v-if="this.$parent.isMobile">
         <div class="base-modal-header">
-          <div class="base-modal-close" @click="close()"></div>
+          <div class="base-modal-close" @click="$parent.close()"></div>
           {{ title }}
         </div>
       </template>
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       visible: false,
-      Translation: Translation[this.$parent.lang],
+      Translation: Translation[this.$parent.lang]
     };
   },
   methods: {
