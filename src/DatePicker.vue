@@ -60,8 +60,7 @@ export default {
     },
     startDisable: {
       type: Date,
-      required: true,
-      default: () => new Date(),
+      default: () => new Date().toJSON(),
     },
     changeRange: {
       default: null,
