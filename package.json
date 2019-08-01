@@ -1,6 +1,6 @@
 {
   "name": "vue-datepicker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "author": "Alexandr Pestryakov <mertico@yandex.ru>",
   "license": "MIT",
@@ -27,7 +27,8 @@
   "main": "lib/vue-datepicker.common.js",
   "unpkg": "lib/vue-datepicker.umd.min.js",
   "files": [
-    "lib", "src"
+    "lib",
+    "src"
   ],
   "dependencies": {
     "lodash-es": "^4.17.11",
