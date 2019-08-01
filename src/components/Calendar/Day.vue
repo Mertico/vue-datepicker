@@ -119,7 +119,17 @@ export default {
           this.dateOut &&
           this.timeCurrentDay.getTime() != this.dateOut.getTime())
       ) {
-        this.$parent.$parent.dateIn = this.timeCurrentDay;
+        // На случай если есть дата отъезда и мы нажали на нее
+        if (
+          !this.dateOut ||
+          (this.dateOut &&
+            this.timeCurrentDay.getTime() != this.dateOut.getTime())
+        ) {
+          this.$parent.$parent.dateIn = this.timeCurrentDay;
+        } else {
+          this.$parent.$parent.dateOut = null;
+          // return;
+        }
         return;
       } else {
         if (this.timeCurrentDay.getTime() == this.dateIn.getTime()) {

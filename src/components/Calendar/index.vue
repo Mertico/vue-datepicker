@@ -7,7 +7,12 @@
     }"
   >
     <template v-for="date in dateMonth">
-      <Month :dateMonth="date" :lang="lang" :startDisable="startDisable" />
+      <Month
+        :dateMonth="date"
+        :lang="lang"
+        :startDisable="startDisable"
+        :key="date.toLocaleString()"
+      />
     </template>
   </div>
 </template>
