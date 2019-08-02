@@ -20,7 +20,7 @@
       <div
         class="calendar--reset"
         @click="reset"
-        :class="{ 'calendar--reset-visible': date }"
+        :class="{ 'calendar--reset-visible': (date instanceof Object && date.out && date.in) }"
       >
         {{ Translation["reset"] }}
       </div>
