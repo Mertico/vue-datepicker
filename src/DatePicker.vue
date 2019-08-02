@@ -109,8 +109,8 @@ export default {
       this.$emit("show");
       this.$refs.baseModalRef.show();
     },
-    close() {
-      this.$emit("close");
+    close(value) {
+      this.$emit("close", value);
       this.$refs.baseModalRef.close();
     },
     prev() {
