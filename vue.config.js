@@ -41,7 +41,8 @@ module.exports = {
       splitChunks: false
     },
     output: {
-      filename: "vue-datepicker.min.js"
+      filename: "vue-datepicker.min.js",
+      // libraryTarget: 'commonjs2'
     },
     plugins: [
       // Make sure that the plugin is after any plugins that add images, example `CopyWebpackPlugin`
@@ -72,9 +73,9 @@ module.exports = {
       })
     ]
   },
-  css: {
-    extract: false
-  },
+  // css: {
+  //   extract: false
+  // },
   productionSourceMap: false,
   // publicPath: process.env.NODE_ENV === 'production'
   // ? '/vue-hotel-datepicker/' // project name
