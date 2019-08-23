@@ -12,6 +12,7 @@
         :lang="lang"
         :startDisable="startDisable"
         :key="date.toLocaleString()"
+        :employment="employment"
       />
     </template>
   </div>
@@ -64,6 +65,10 @@ export default {
     startDisable: {
       type: Date,
       default: () => new Date()
+    },
+    employment: {
+      type: Array,
+      default: () => ([])
     }
   },
   computed: {

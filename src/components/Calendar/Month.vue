@@ -19,6 +19,7 @@
           :key="date"
           v-for="date in weeks"
           :startDisable="startDisable"
+          :class='fillEmployment[date] && `day-employment__${fillEmployment[date]}`'
         />
         <td v-else></td>
       </tr>
@@ -62,6 +63,32 @@ export default {
           date
         ).toLocaleString(this.lang, { weekday: "short" })
       );
+    },
+    fillEmployment() {
+      const paris = this.employment.map(value => [value.from.getTime(), value.to.getTime()])
+      // console.log(paris, this.days.flat(1).filter(v=>v));
+
+      const startTime = this.dateMonth.getTime()
+      // console.log(startTime);
+
+      const fill = this.days.flat(1).filter(v=>v).map(day=> {
+        if(!day) return;
+        const leftPart = startTime+(day-1)*86400000;
+        const rightPart = (startTime+(day)*86400000)-1;
+        const isLeftPartEmploy = paris.find(v=>v[0] <= leftPart && leftPart < v[1]);
+        const isRightPartEmploy = paris.find(v=>v[0] <= rightPart && rightPart < v[1]);
+
+        if(isLeftPartEmploy && isRightPartEmploy) {
+          return "both";
+        } else if (isLeftPartEmploy) {
+          return "left";
+        } else if (isRightPartEmploy) {
+          return "right";
+        }
+
+      })
+      fill.unshift(undefined)// Так как дни идут с 1, не с 0
+      return fill;
     }
   },
   async mounted() {
@@ -93,6 +120,10 @@ export default {
       validator(value) {
         return ["ru-RU", "en-US"].includes(value);
       }
+    },
+    employment: {
+      type: Array,
+      default: () => ([])
     }
   }
 };

@@ -113,6 +113,38 @@ export default {
       this.$parent.$parent.dateSingle = this.timeCurrentDay;
     },
     rangeDayClick() {
+      // Если есть заблокированые даты проверяем их
+      if(this.$parent.employment && (this.dateIn || this.dateOut) && !(this.dateIn && this.dateOut)) {
+        const anotherPoint = (this.dateIn && this.dateIn.getTime()) || (this.dateOut && this.dateOut.getTime())
+        const leftPart = Math.min(this.timeCurrentDay.getTime(), anotherPoint ) + (86400000-1);
+        const rightPart = Math.max(this.timeCurrentDay.getTime(), anotherPoint );
+        
+        // Пример расчетных дат
+        // Mon Sep 09 2019 23:59:59 GMT+0400 (Самарское стандартное время) 
+        // Tue Sep 10 2019 00:00:00 GMT+0400 (Самарское стандартное время)
+        
+        const isEmploy = this.$parent.employment.find(value => {
+          // console.log(
+          //   "Занятость внутри промежутка",
+          //   value.from.getTime() <= leftPart && leftPart < value.to.getTime() ,
+          //   value.from.getTime() <= rightPart && rightPart < value.to.getTime(),
+            
+          //   "Между выбраным есть занятость",
+          //   leftPart <= value.from.getTime() && value.from.getTime() < rightPart,
+          //   leftPart <=  value.to.getTime() && value.to.getTime() < rightPart
+          // );
+          return (
+            value.from.getTime() <= leftPart && leftPart < value.to.getTime() &&
+            value.from.getTime() <= rightPart && rightPart < value.to.getTime() ||
+
+            (leftPart <= value.from.getTime() && value.from.getTime() < rightPart ||
+            leftPart <=  value.to.getTime() && value.to.getTime() < rightPart)
+          )
+        })
+        // Можно сделать выбрасывание ошибки, но хер с ней
+        if(isEmploy) return;
+      }
+
       if (
         !this.dateIn ||
         (this.$parent.$parent.changeRange == "in" &&
@@ -166,6 +198,25 @@ export default {
   border: 1px solid rgb(228, 231, 231);
   box-sizing: border-box;
   vertical-align: middle;
+
+
+  &.day-employment {
+    &__both {
+      background: pink;
+      pointer-events: none;
+      border-left-color: pink !important;
+      border-right-color: pink !important;
+    }
+    &__left {
+      background: linear-gradient(to right, pink, pink 50%, transparent 50%, transparent);
+      border-left-color: pink !important;
+    }
+    &__right {
+      background: linear-gradient(to left, pink, pink 50%, transparent 50%, transparent);
+      border-right-color: pink !important;
+    }
+  }
+
   &.disabled {
     pointer-events: none;
     opacity: 0.25;
@@ -177,12 +228,12 @@ export default {
   &.active {
     background-color: rgb(111, 167, 89);
     color: white;
-    border-color: rgb(111, 167, 89);
+    // border-color: rgb(111, 167, 89);
   }
   &:hover {
     background-color: rgba(111, 167, 89, 0.75);
     color: white;
-    border-color: rgba(111, 167, 89, 0.75);
+    // border-color: rgba(111, 167, 89, 0.75);
   }
   &.current-date {
     position: relative;

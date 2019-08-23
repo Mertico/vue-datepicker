@@ -14,6 +14,7 @@
       :changeRange="changeRange"
       :type="type"
       :startDisable="startDisable"
+      :employment="employment"
       ref="CalendarRef"
     />
     <div class="calendar-footer">
@@ -74,6 +75,10 @@ export default {
     i18n: {
       type: Object,
       default: () => ({})
+    },
+    employment: {
+      type: Array,
+      default: () => ([])
     }
   },
   watch: {
