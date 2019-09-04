@@ -54,11 +54,11 @@
       Translation: {{ dateTranslation }}
     </div>
 
-
-
-
-
-    <DatePicker ref="DatePickerPreset" v-model="datePreset" :employment="employment"  />
+    <DatePicker
+      ref="DatePickerPreset"
+      v-model="datePreset"
+      :employment="employment"
+    />
     <div @click="$refs.DatePickerPreset.show()">
       Занятые даты: {{ datePreset }}
     </div>
@@ -80,11 +80,11 @@ export default {
       employment: [
         {
           from: new Date("2019-08-28 14:00:00"),
-          to: new Date("2019-09-09 12:00:00"),
+          to: new Date("2019-09-09 12:00:00")
         },
         {
           from: new Date("2019-09-10 14:00:00"),
-          to: new Date("2019-09-11 12:00:00"),
+          to: new Date("2019-09-11 12:00:00")
         }
       ],
       datePreset: {

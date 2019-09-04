@@ -68,7 +68,7 @@ export default {
     },
     employment: {
       type: Array,
-      default: () => ([])
+      default: () => []
     }
   },
   computed: {

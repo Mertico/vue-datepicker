@@ -41,7 +41,7 @@ module.exports = {
       splitChunks: false
     },
     output: {
-      filename: "vue-datepicker.min.js",
+      filename: "vue-datepicker.min.js"
       // libraryTarget: 'commonjs2'
     },
     plugins: [

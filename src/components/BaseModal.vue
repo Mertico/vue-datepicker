@@ -19,7 +19,10 @@
           <div class="base-modal-header--tooltip">
             {{ Translation["tooltip"] }}
           </div>
-          <div class="base-modal-header--close-after" @click="$parent.close('another')">
+          <div
+            class="base-modal-header--close-after"
+            @click="$parent.close('another')"
+          >
             {{ Translation["closeText"] }}
           </div>
         </div>
