@@ -187,15 +187,35 @@ export default {
 <style lang="scss" scoped>
 .calendar {
   user-select: none;
-  display: flex;
-  justify-content: space-between;
   line-height: 1;
   &.vertical {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
     .month {
       padding: 10px 0;
     }
+  }
+  &.horizontal {
+    display: flex;
+    .month {
+      min-height: 283px;
+    }
+    .month:not(:last-child) {
+      margin-right: 20px
+    }
+    // ::v-deep .month {
+    //   table {
+    //     min-height: 266px;
+    //   }
+    //   table tr {
+    //     // &:nth-child(6n) + tr {
+    //     //   background: #000;
+    //     //   margin-bottom: -40px;
+    //     // }
+    //   }
+    // }
   }
   .month {
     // padding: 0 10px;

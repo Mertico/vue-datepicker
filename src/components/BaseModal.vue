@@ -8,27 +8,20 @@
       }"
       v-if="visible"
     >
-      <template v-if="this.$parent.isMobile">
-        <div class="base-modal-header">
-          <div class="base-modal-close" @click="$parent.close()"></div>
-          {{ title }}
+      <div class="base-modal-header" v-if="this.$parent.showHeader">
+        <div class="base-modal-header--tooltip">
+          {{ Translation["tooltip"] }}
         </div>
-      </template>
-      <template v-else>
-        <div class="base-modal-header" v-if="this.$parent.showHeader">
-          <div class="base-modal-header--tooltip">
-            {{ Translation["tooltip"] }}
-          </div>
-          <div
-            class="base-modal-header--close-after"
-            @click="$parent.close('another')"
-          >
-            {{ Translation["closeText"] }}
-          </div>
+        <div
+          class="base-modal-header--close-after"
+          @click="$parent.close('another')"
+        >
+          {{ Translation["closeText"] }}
         </div>
-        <div class="base-modal-prev" @click="prev()"></div>
-        <div class="base-modal-next" @click="next()"></div>
-      </template>
+      </div>
+      <div class="base-modal-prev" @click="prev()"></div>
+      <div class="base-modal-next" @click="next()"></div>
+
       <div class="base-modal-body">
         <slot></slot>
       </div>
@@ -40,12 +33,6 @@ import Translation from "./../locales.json";
 
 export default {
   name: "BaseModal",
-  props: {
-    title: {
-      type: String,
-      default: ""
-    }
-  },
   data() {
     return {
       visible: false,
@@ -98,67 +85,52 @@ export default {
   }
 }
 .base-modal {
-  &.mobile {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999999;
-  }
   background-color: white;
-  &.desktop {
-    position: absolute;
-    z-index: 9999999;
-    width: 596px;
-    box-shadow: 0 15px 30px 10px rgba(68, 68, 68, 0.08);
-    margin-top: 26px;
-    padding-top: 20px;
-  }
+  position: absolute;
+  z-index: 9999999;
+  box-shadow: 0 15px 30px 10px rgba(68, 68, 68, 0.08);
+  margin-top: 26px;
+  padding-top: 15px;
   &-header {
-    height: 30px;
-    text-align: center;
+    display: flex;
+    text-align: left;
     font-size: 17px;
     line-height: 30px;
     background-color: white;
     color: black;
-    .base-modal.mobile & {
-      border-bottom: 1px solid #d1d1d1;
-      height: 50px;
-      line-height: 50px;
-    }
-    min-height: 43px;
+    margin-bottom: 10px;
     &--close-after {
-      float: right;
+      display: flex;
+      align-items: center;
+      margin-left: auto;
       color: #2d6cb4;
       cursor: pointer;
       font-size: 14px;
       padding-right: 20px;
+      line-height: 1;
     }
     &--tooltip {
-      float: left;
+      display: flex;
+      align-items: center;
       color: #999;
+      font-size: 16px;
+      line-height: 1;
       &::before {
         content: "";
         display: inline-block;
         float: left;
+        min-width: 26px;
         width: 26px;
         height: 24px;
         background-image: url("../assets/lamp.svg");
         margin-right: 8px;
-        margin-left: 20px;
+        margin-left: 12px;
       }
     }
   }
   &-body {
-    .base-modal.desktop & {
-      padding: 0 20px;
-    }
+    padding: 0 20px;
     padding-bottom: 20px;
-    .base-modal.mobile & {
-      overflow: auto;
-      max-height: calc(100% - 51px);
-    }
   }
   &-prev,
   &-next {
@@ -180,31 +152,6 @@ export default {
     left: initial;
     right: 20px;
     float: right;
-  }
-  &-close {
-    position: absolute;
-    right: 10px;
-    font-size: 64px;
-    line-height: 40px;
-    width: 40px;
-    height: 50px;
-    transform: scale(0.7);
-    &::before,
-    &::after {
-      content: "";
-      background-color: black;
-      width: 3px;
-      height: 24px;
-      display: inline-block;
-    }
-    &::before {
-      transform: rotate(45deg) translate(1px, -1px);
-      transform-origin: 100% 50%;
-    }
-    &::after {
-      transform: rotate(-45deg);
-      transform-origin: 0% 50%;
-    }
   }
 }
 </style>

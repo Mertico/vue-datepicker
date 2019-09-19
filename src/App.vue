@@ -62,6 +62,26 @@
     <div @click="$refs.DatePickerPreset.show()">
       Занятые даты: {{ datePreset }}
     </div>
+
+
+
+
+
+
+
+
+    <br/>
+
+    <DatePicker
+      ref="DatePickerOneMonth"
+      v-model="dateOneMonth"
+      :employment="employment"
+      :showHeader="false"
+      size="small"
+    />
+    <div @click="$refs.DatePickerOneMonth.show()">
+      Одномесячный: {{ dateOneMonth }}
+    </div>
   </div>
 </template>
 
@@ -99,7 +119,9 @@ export default {
       date: {},
       date2: {},
       dateSingle: {},
-      dateTranslation: {}
+      dateTranslation: {},
+
+      dateOneMonth: {}
     };
   }
 };

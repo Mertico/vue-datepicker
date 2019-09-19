@@ -2,16 +2,12 @@
   "ru": {
     "closeText" : "Введу даты позже",
     "tooltip": "Введите даты поездки, чтобы увидеть цены",
-    "choiceDate" : "Дата заезда − отъезда",
-    "more": "Показать еще",
     "reset": "Сбросить выбор",
     "lang": "ru-RU"
   },
   "en": {
     "closeText" : "Enter dates later",
     "tooltip": "Enter dates of your trip to see prices",
-    "choiceDate" : "Check-in & check-out dates",
-    "more": "More",
     "reset": "Clear dates",
     "lang": "en-US"
   }

@@ -8,7 +8,7 @@
     <Calendar
       :beginDate="beginDate"
       :countMonth="countMonth"
-      :orientation="typeCalendar"
+      orientation="horizontal"
       v-model="date"
       :lang="Translation['lang']"
       :changeRange="changeRange"
@@ -27,9 +27,6 @@
         }"
       >
         {{ Translation["reset"] }}
-      </div>
-      <div class="calendar--more" @click="more" v-if="isMobile">
-        {{ Translation["more"] }}
       </div>
     </div>
   </BaseModal>
@@ -52,6 +49,13 @@ export default {
       type: String,
       validator(value) {
         return ["single", "range"].includes(value);
+      }
+    },
+    size: {
+      default: "big",
+      type: String,
+      validator(value) {
+        return ["small", "big"].includes(value);
       }
     },
     lang: {
@@ -99,6 +103,7 @@ export default {
       }
     },
     "$attrs.value": function() {
+      
       if (this.$attrs.value instanceof Date) {
         this.date = this.$attrs.value;
       } else if (this.$attrs.value instanceof Object) {
@@ -109,11 +114,22 @@ export default {
   },
   methods: {
     toggle() {
-      if (!this.$refs.baseModalRef.visible) this.$emit("show");
-      else this.$emit("close");
+      if (!this.$refs.baseModalRef.visible) {
+        if (this.$attrs.value instanceof Date) {
+          this.beginDate = this.date;
+        } else if (this.$attrs.value instanceof Object) {
+          this.beginDate = this.$attrs.value.in || this.$attrs.value.out;
+        }
+        this.$emit("show");
+      } else this.$emit("close");
       this.$refs.baseModalRef.toggle();
     },
     show() {
+      if (this.$attrs.value instanceof Date) {
+        this.beginDate = this.date || new Date();
+      } else if (this.$attrs.value instanceof Object) {
+        this.beginDate = this.$attrs.value.in || this.$attrs.value.out || new Date();
+      }
       this.$emit("show");
       this.$refs.baseModalRef.show();
     },
@@ -123,16 +139,13 @@ export default {
     },
     prev() {
       this.beginDate = new Date(
-        new Date(this.beginDate).setMonth(this.beginDate.getMonth() - 2)
+        new Date(this.beginDate).setMonth(this.beginDate.getMonth() - this.countMonth)
       );
     },
     next() {
       this.beginDate = new Date(
-        new Date(this.beginDate).setMonth(this.beginDate.getMonth() + 2)
+        new Date(this.beginDate).setMonth(this.beginDate.getMonth() + this.countMonth)
       );
-    },
-    more() {
-      this.countMonth += 6;
     },
     reset() {
       this.$set(this.date, "in", null);
@@ -145,17 +158,12 @@ export default {
     handleWindowResize() {
       if (window.innerWidth <= 768) {
         this.isMobile = true;
-        if (this.countMonth < 30) this.countMonth = 30;
+        this.countMonth = 1;
       } else {
         this.isMobile = false;
-        this.countMonth = 2;
+        this.countMonth = this.size == "small" ? 1 : 2;
       }
       return this.isMobile;
-    }
-  },
-  computed: {
-    typeCalendar() {
-      return this.isMobile ? "vertical" : "horizontal";
     }
   },
   mounted() {
@@ -166,15 +174,15 @@ export default {
       this.$set(this.date, "out", this.$attrs.value.out);
     }
     window.addEventListener("resize", this.handleWindowResize);
-    if (this.isMobile) this.countMonth = 30;
-    else this.countMonth = 2;
+    if (this.isMobile) this.countMonth = 1;
+    else this.countMonth = this.size == "small" ? 1 : 2;
   },
   destroyed() {
     window.removeEventListener("resize", this.handleWindowResize);
   },
   data() {
     return {
-      countMonth: 2,
+      countMonth: this.size == "small" ? 1 : 2,
       beginDate: new Date(),
       date: {},
       Translation: { ...Translation[this.lang], ...this.i18n[this.lang] },
@@ -205,36 +213,21 @@ export default {
   font-size: 14px;
   line-height: 16px;
   position: relative;
-  // padding-top: 20px;
-  // padding-bottom: 10px;
   opacity: 0;
   transition: opacity 0.2s;
   pointer-events: none;
   display: inline-block;
-  .base-modal.mobile & {
-    top: 0px;
-  }
   &-visible {
     pointer-events: auto;
     opacity: 1;
   }
 }
-.base-modal.desktop .calendar-footer {
-  height: 55px;
+.base-modal .calendar-footer {
   display: flex;
   align-items: center;
-}
-.base-modal.mobile .calendar-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: red;
-  height: 55px;
-  padding: 15px 20px;
-  box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.05);
-  background-color: #fff;
-  box-sizing: border-box;
+  position: absolute;
+  bottom: 28px;
+  right: 20px;
 }
 .calendar-value {
   padding: 8px;

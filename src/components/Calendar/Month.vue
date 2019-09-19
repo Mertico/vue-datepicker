@@ -5,11 +5,11 @@
       {{ dateMonth.getFullYear() }}
     </div>
     <table cellspacing="0" cellpadding="0">
-      <tr>
+      <thead>
         <th v-for="day in weekday" :key="day">
           {{ day }}
         </th>
-      </tr>
+      </thead>
 
       <tr v-for="(weeks, index) in days" :key="index">
         <Day
