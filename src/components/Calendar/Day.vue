@@ -204,6 +204,7 @@ export default {
   text-align: center;
   font-size: 14px;
   width: 38px;
+  min-width: 38px;
   height: 38px;
   cursor: pointer;
   border: 1px solid rgb(228, 231, 231);
