@@ -103,7 +103,6 @@ export default {
       }
     },
     "$attrs.value": function() {
-      
       if (this.$attrs.value instanceof Date) {
         this.date = this.$attrs.value;
       } else if (this.$attrs.value instanceof Object) {
@@ -114,14 +113,10 @@ export default {
   },
   methods: {
     toggle() {
-      if (!this.$refs.baseModalRef.visible) {
-        if (this.$attrs.value instanceof Date) {
-          this.beginDate = this.date;
-        } else if (this.$attrs.value instanceof Object) {
-          this.beginDate = this.$attrs.value.in || this.$attrs.value.out;
-        }
-        this.$emit("show");
-      } else this.$emit("close");
+      if (this.$refs.baseModalRef.visible)
+        this.show();
+      else 
+        this.close();
       this.$refs.baseModalRef.toggle();
     },
     show() {
