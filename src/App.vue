@@ -74,14 +74,14 @@
 
     <DatePicker
       ref="DatePickerOneMonthSingle"
-      v-model="dateTranslation"
+      v-model="DatePickerOneMonthSingle"
       :employment="employment"
       :showHeader="false"
       size="small"
       type="single"
     />
     <div @click="$refs.DatePickerOneMonthSingle.toggle()">
-      Одномесячный на одну дату: {{ dateTranslation }}
+      Одномесячный на одну дату: {{ DatePickerOneMonthSingle }}
     </div>
 
 
@@ -120,6 +120,10 @@ export default {
         {
           from: new Date("2019-09-10 14:00:00"),
           to: new Date("2019-09-11 12:00:00")
+        },
+        {
+          from: new Date("2019-09-22 14:00:00"),
+          to: new Date("2019-09-24 12:00:00")
         }
       ],
       datePreset: {
@@ -136,7 +140,8 @@ export default {
       dateSingle: {},
       dateTranslation: {},
 
-      dateOneMonth: {}
+      dateOneMonth: {},
+      DatePickerOneMonthSingle: new Date()
     };
   }
 };

@@ -121,7 +121,7 @@ export default {
     },
     show() {
       if (this.$attrs.value instanceof Date) {
-        this.beginDate = this.date || new Date();
+        this.beginDate = this.$attrs.value || new Date();
       } else if (this.$attrs.value instanceof Object) {
         this.beginDate = this.$attrs.value.in || this.$attrs.value.out || new Date();
       }
@@ -143,9 +143,13 @@ export default {
       );
     },
     reset() {
-      this.$set(this.date, "in", null);
-      this.$set(this.date, "out", null);
-      this.$set(this.date, "single", null);
+
+      if (this.date instanceof Date) {
+        this.date = null
+      } else if (this.$attrs.value instanceof Object) {
+        this.$set(this.date, "in", null);
+        this.$set(this.date, "out", null);
+      }
       this.$refs.CalendarRef.reset();
       this.$emit("input", this.date);
       this.$emit("change", this.date);
