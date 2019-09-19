@@ -114,15 +114,17 @@ export default {
   methods: {
     toggle() {
       if (this.$refs.baseModalRef.visible)
-        this.show();
-      else 
         this.close();
-      this.$refs.baseModalRef.toggle();
+      else 
+        this.show();
     },
     show() {
       if (this.$attrs.value instanceof Date) {
         this.beginDate = this.$attrs.value || new Date();
+        console.log(this.$attrs.value);
+        
       } else if (this.$attrs.value instanceof Object) {
+        console.log(this.$attrs.value);
         this.beginDate = this.$attrs.value.in || this.$attrs.value.out || new Date();
       }
       this.$emit("show");

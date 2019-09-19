@@ -141,7 +141,7 @@ export default {
       dateTranslation: {},
 
       dateOneMonth: {},
-      DatePickerOneMonthSingle: new Date()
+      DatePickerOneMonthSingle:  new Date("2020-09-24 12:00:00")
     };
   }
 };
