@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <DatePicker ref="DatePickerPreset" v-model="datePreset" />
+    <DatePicker ref="DatePickerPreset" v-model="datePreset" />
     <div @click="$refs.DatePickerPreset.show()">
       Выбраная дата: {{ datePreset }}
     </div>
@@ -62,7 +62,7 @@
     <div @click="$refs.DatePickerPreset.show()">
       Занятые даты: {{ datePreset }}
     </div>
- -->
+
 
 
 
@@ -73,19 +73,19 @@
     <br/>
 
     <DatePicker
-      ref="DatePickerOneMonth"
+      ref="DatePickerOneMonthSingle"
       v-model="dateTranslation"
       :employment="employment"
       :showHeader="false"
       size="small"
       type="single"
     />
-    <div @click="$refs.DatePickerOneMonth.toggle()">
+    <div @click="$refs.DatePickerOneMonthSingle.toggle()">
       Одномесячный на одну дату: {{ dateTranslation }}
     </div>
 
 
-    <!-- <br/>
+    <br/>
 
     <DatePicker
       ref="DatePickerOneMonth"
@@ -96,7 +96,7 @@
     />
     <div @click="$refs.DatePickerOneMonth.show()">
       Одномесячный: {{ dateOneMonth }}
-    </div> -->
+    </div>
   </div>
 </template>
 
