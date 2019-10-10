@@ -119,6 +119,7 @@ export default {
         this.show();
     },
     show() {
+      this.handleWindowResize()
       if (this.$attrs.value instanceof Date) {
         this.beginDate = this.$attrs.value || new Date();
       } else if (this.$attrs.value instanceof Object) {
@@ -154,6 +155,17 @@ export default {
       this.$emit("change", this.date);
     },
     handleWindowResize() {
+      if (typeof process !== 'undefined' &&
+        (
+          process.server ||
+          process.SERVER_BUILD ||
+          (process.env && process.env.VUE_ENV === 'server')
+        )
+      ) {
+        this.isMobile = true;
+        this.countMonth = 1;
+        return
+      }
       if (window.innerWidth <= 768) {
         this.isMobile = true;
         this.countMonth = 1;
@@ -172,19 +184,17 @@ export default {
       this.$set(this.date, "out", this.$attrs.value.out);
     }
     window.addEventListener("resize", this.handleWindowResize);
-    if (this.isMobile) this.countMonth = 1;
-    else this.countMonth = this.size == "small" ? 1 : 2;
   },
   destroyed() {
     window.removeEventListener("resize", this.handleWindowResize);
   },
   data() {
     return {
-      countMonth: this.size == "small" ? 1 : 2,
+      countMonth: 1,
       beginDate: new Date(),
       date: {},
       Translation: { ...Translation[this.lang], ...this.i18n[this.lang] },
-      isMobile: this.handleWindowResize()
+      isMobile: true
     };
   }
 };
