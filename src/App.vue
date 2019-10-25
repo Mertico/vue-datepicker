@@ -34,24 +34,25 @@
 
     <DatePicker
       ref="DatePickerTranslation"
+      size="small"
       lang="en"
       type="single"
       :i18n="i18n"
       v-model="dateTranslation"
     />
     <div @click="$refs.DatePickerTranslation.show()">
-      Translation: {{ dateTranslation }}
+      Translation Single: {{ dateTranslation }}
     </div>
 
     <DatePicker
-      ref="DatePickerTranslation"
+      ref="DatePickerTranslation2"
       lang="en"
       type="single"
       :i18n="i18n"
       v-model="dateTranslation"
     />
-    <div @click="$refs.DatePickerTranslation.show()">
-      Translation: {{ dateTranslation }}
+    <div @click="$refs.DatePickerTranslation2.show()">
+      Translation Single2: {{ dateTranslation }}
     </div>
 
     <DatePicker
@@ -138,7 +139,7 @@ export default {
       date: {},
       date2: {},
       dateSingle: {},
-      dateTranslation: {},
+      dateTranslation: null,
 
       dateOneMonth: {},
       DatePickerOneMonthSingle:  new Date("2020-09-24 12:00:00")
