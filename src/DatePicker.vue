@@ -134,13 +134,20 @@ export default {
     },
     prev() {
       this.beginDate = new Date(
-        new Date(this.beginDate).setMonth(this.beginDate.getMonth() - this.countMonth)
+        new Date(this.beginDate).getFullYear(),
+        (new Date(this.beginDate).getMonth() - this.countMonth),
+        1
       );
+      console.log( this.beginDate );
+      
     },
     next() {
       this.beginDate = new Date(
-        new Date(this.beginDate).setMonth(this.beginDate.getMonth() + this.countMonth)
+        new Date(this.beginDate).getFullYear(),
+        (new Date(this.beginDate).getMonth() + this.countMonth) % 12 ,
+        1
       );
+      
     },
     reset() {
 
