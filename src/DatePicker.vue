@@ -138,8 +138,6 @@ export default {
         (new Date(this.beginDate).getMonth() - this.countMonth),
         1
       );
-      console.log( this.beginDate );
-      
     },
     next() {
       this.beginDate = new Date(
