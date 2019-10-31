@@ -37,6 +37,8 @@ import Translation from "./locales.json";
 import Calendar from "./components/Calendar";
 import BaseModal from "./components/BaseModal";
 
+const BeginTime = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
 export default {
   name: "DatePicker",
   components: {
@@ -121,9 +123,9 @@ export default {
     show() {
       this.handleWindowResize()
       if (this.$attrs.value instanceof Date) {
-        this.beginDate = this.$attrs.value || new Date();
+        this.beginDate = this.$attrs.value || BeginTime;
       } else if (this.$attrs.value instanceof Object) {
-        this.beginDate = this.$attrs.value.in || this.$attrs.value.out || new Date();
+        this.beginDate = this.$attrs.value.in || this.$attrs.value.out || BeginTime;
       }
       this.$emit("show");
       this.$refs.baseModalRef.show();
@@ -134,18 +136,13 @@ export default {
     },
     prev() {
       this.beginDate = new Date(
-        new Date(this.beginDate).getFullYear(),
-        (new Date(this.beginDate).getMonth() - this.countMonth),
-        1
-      );
+        new Date(this.beginDate).setMonth(this.beginDate.getMonth() - this.countMonth)
+      )
     },
     next() {
       this.beginDate = new Date(
-        new Date(this.beginDate).getFullYear(),
-        (new Date(this.beginDate).getMonth() + this.countMonth) % 12 ,
-        1
-      );
-      
+        new Date(this.beginDate).setMonth(this.beginDate.getMonth() + this.countMonth)
+      )
     },
     reset() {
 
@@ -196,7 +193,7 @@ export default {
   data() {
     return {
       countMonth: 1,
-      beginDate: new Date(),
+      beginDate: BeginTime,
       date: {},
       Translation: { ...Translation[this.lang], ...this.i18n[this.lang] },
       isMobile: true
