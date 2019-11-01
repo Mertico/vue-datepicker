@@ -37,7 +37,7 @@ import Translation from "./locales.json";
 import Calendar from "./components/Calendar";
 import BaseModal from "./components/BaseModal";
 
-const BeginTime = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+const BeginTimeFormat = (date = new Date()) => new Date(date.getFullYear(), date.getMonth(), 1);
 
 export default {
   name: "DatePicker",
@@ -123,9 +123,9 @@ export default {
     show() {
       this.handleWindowResize()
       if (this.$attrs.value instanceof Date) {
-        this.beginDate = this.$attrs.value || BeginTime;
+        this.beginDate = BeginTimeFormat(this.$attrs.value || new Date());
       } else if (this.$attrs.value instanceof Object) {
-        this.beginDate = this.$attrs.value.in || this.$attrs.value.out || BeginTime;
+        this.beginDate = BeginTimeFormat(this.$attrs.value.in || this.$attrs.value.out || new Date());
       }
       this.$emit("show");
       this.$refs.baseModalRef.show();
@@ -193,7 +193,7 @@ export default {
   data() {
     return {
       countMonth: 1,
-      beginDate: BeginTime,
+      beginDate: BeginTimeFormat,
       date: {},
       Translation: { ...Translation[this.lang], ...this.i18n[this.lang] },
       isMobile: true

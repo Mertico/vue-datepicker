@@ -142,7 +142,7 @@ export default {
       dateTranslation: null,
 
       dateOneMonth: {},
-      DatePickerOneMonthSingle:  new Date("2020-09-24 12:00:00")
+      DatePickerOneMonthSingle: new Date("2020-09-30 12:00:00")
     };
   }
 };
