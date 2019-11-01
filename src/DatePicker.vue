@@ -193,7 +193,7 @@ export default {
   data() {
     return {
       countMonth: 1,
-      beginDate: BeginTimeFormat,
+      beginDate: BeginTimeFormat(),
       date: {},
       Translation: { ...Translation[this.lang], ...this.i18n[this.lang] },
       isMobile: true
