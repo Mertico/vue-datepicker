@@ -8,11 +8,11 @@
   >
     <template v-for="date in dateMonth">
       <Month
-        :dateMonth="date"
-        :lang="lang"
-        :startDisable="startDisable"
-        :endDisable="endDisable"
         :key="date.toLocaleString()"
+        :date-month="date"
+        :lang="lang"
+        :start-disable="startDisable"
+        :end-disable="endDisable"
         :employment="employment"
       />
     </template>
@@ -74,6 +74,16 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  data() {
+    return {
+      date: {
+        in: null,
+        out: null,
+        single: null
+      },
+      hoverDate: null
+    };
   },
   computed: {
     dateMonth() {
@@ -145,13 +155,6 @@ export default {
       }
     }
   },
-  methods: {
-    reset() {
-      this.$set(this.date, "in", null);
-      this.$set(this.date, "out", null);
-      this.$set(this.date, "single", null);
-    }
-  },
   watch: {
     "$attrs.value": {
       deep: true,
@@ -175,15 +178,12 @@ export default {
       this.date.out = this.$attrs.value.out;
     }
   },
-  data() {
-    return {
-      date: {
-        in: null,
-        out: null,
-        single: null
-      },
-      hoverDate: null
-    };
+  methods: {
+    reset() {
+      this.$set(this.date, "in", null);
+      this.$set(this.date, "out", null);
+      this.$set(this.date, "single", null);
+    }
   }
 };
 </script>
@@ -207,7 +207,7 @@ export default {
       min-height: 283px;
     }
     .month:not(:last-child) {
-      margin-right: 20px
+      margin-right: 20px;
     }
     // ::v-deep .month {
     //   table {

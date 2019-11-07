@@ -13,13 +13,13 @@
 
       <tr v-for="(weeks, index) in days" :key="index">
         <Day
-          :date="date"
-          :dateMonth="dateMonth"
+          v-for="date in weeks"
           v-if="date"
           :key="date"
-          v-for="date in weeks"
-          :startDisable="startDisable"
-          :endDisable="endDisable"
+          :date="date"
+          :date-month="dateMonth"
+          :start-disable="startDisable"
+          :end-disable="endDisable"
           :class="
             fillEmployment[date] && `day-employment__${fillEmployment[date]}`
           "
@@ -32,12 +32,37 @@
 
 <script>
 import Day from "./Day.vue";
-import _ from "lodash-es";
+import _ from "lodash";
 
 export default {
   name: "Month",
   components: {
     Day
+  },
+  props: {
+    dateMonth: {
+      type: Date,
+      required: true
+    },
+    startDisable: {
+      type: Date,
+      required: true,
+      default: () => new Date()
+    },
+    endDisable: {
+      type: Date
+    },
+    lang: {
+      default: "ru-RU",
+      type: String,
+      validator(value) {
+        return ["ru-RU", "en-US"].includes(value);
+      }
+    },
+    employment: {
+      type: Array,
+      default: () => []
+    }
   },
   computed: {
     days() {
@@ -112,31 +137,6 @@ export default {
       setTimeout(() => {
         this.$el.scrollIntoView({ block: "center", behavior: "smooth" });
       }, 500);
-    }
-  },
-  props: {
-    dateMonth: {
-      type: Date,
-      required: true
-    },
-    startDisable: {
-      type: Date,
-      required: true,
-      default: () => new Date()
-    },
-    endDisable: {
-      type: Date
-    },
-    lang: {
-      default: "ru-RU",
-      type: String,
-      validator(value) {
-        return ["ru-RU", "en-US"].includes(value);
-      }
-    },
-    employment: {
-      type: Array,
-      default: () => []
     }
   }
 };

@@ -1,12 +1,5 @@
-const ImageminPlugin = require("imagemin-webpack");
-
-// Before importing imagemin plugin make sure you add it in `package.json` (`dependencies`) and install
-const imageminGifsicle = require("imagemin-gifsicle");
-const imageminMozjpeg = require("imagemin-mozjpeg");
-const imageminPngquant = require("imagemin-pngquant");
-const imageminSvgo = require("imagemin-svgo");
-
 module.exports = {
+  lintOnSave: false, //process.env.NODE_ENV !== 'production',
   chainWebpack: config => {
     config.module.rule("vue" /* or css */).exclude.add([/node_modules/]);
 
@@ -44,34 +37,7 @@ module.exports = {
       filename: "vue-datepicker.min.js"
       // libraryTarget: 'commonjs2'
     },
-    plugins: [
-      // Make sure that the plugin is after any plugins that add images, example `CopyWebpackPlugin`
-      new ImageminPlugin({
-        bail: false, // Ignore errors on corrupted images
-        cache: true,
-        imageminOptions: {
-          // Lossless optimization with custom option
-          // Feel free to experement with options for better result for you
-          plugins: [
-            imageminGifsicle({
-              interlaced: true
-            }),
-            imageminMozjpeg({
-              progressive: true,
-              quality: 80
-            }),
-            imageminPngquant({
-              speed: 1,
-              quality: [0.95, 1], //lossy settings
-              optimizationLevel: 5
-            }),
-            imageminSvgo({
-              removeViewBox: true
-            })
-          ]
-        }
-      })
-    ]
+    plugins: []
   },
   // css: {
   //   extract: false

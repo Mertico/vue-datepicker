@@ -3,12 +3,48 @@ module.exports = {
   env: {
     node: true
   },
-  extends: ["plugin:vue/essential", "@vue/prettier"],
+  extends: ["plugin:vue/essential", "plugin:vue/recommended", "@vue/prettier"],
   rules: {
+    "vue/order-in-components": [
+      "error",
+      {
+        order: [
+          "el",
+          "name",
+          "parent",
+          "functional",
+          ["delimiters", "comments"],
+          ["components", "directives", "filters"],
+          "extends",
+          "mixins",
+          "inheritAttrs",
+          "model",
+          ["props", "propsData"],
+          "fetch",
+          "asyncData",
+          "data",
+          "computed",
+          "watch",
+          "LIFECYCLE_HOOKS",
+          "methods",
+          "head",
+          ["template", "render"],
+          "renderError"
+        ]
+      }
+    ],
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
   },
   parserOptions: {
     parser: "babel-eslint"
-  }
+  },
+  overrides: [
+    {
+      files: ["**/__tests__/*.{j,t}s?(x)"],
+      env: {
+        jest: true
+      }
+    }
+  ]
 };

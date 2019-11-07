@@ -1,14 +1,14 @@
 <template>
   <transition name="base-modal--fade">
     <div
+      v-if="visible"
       class="base-modal"
       :class="{
         desktop: !this.$parent.isMobile,
         mobile: this.$parent.isMobile
       }"
-      v-if="visible"
     >
-      <div class="base-modal-header" v-if="this.$parent.showHeader">
+      <div v-if="this.$parent.showHeader" class="base-modal-header">
         <div class="base-modal-header--tooltip">
           {{ Translation["tooltip"] }}
         </div>
@@ -19,8 +19,8 @@
           {{ Translation["closeText"] }}
         </div>
       </div>
-      <div class="base-modal-prev" @click="prev()" v-show="!isBegin"></div>
-      <div class="base-modal-next" @click="next()" v-show="!isEnd"></div>
+      <div v-show="!isBegin" class="base-modal-prev" @click="prev()"></div>
+      <div v-show="!isEnd" class="base-modal-next" @click="next()"></div>
 
       <div class="base-modal-body">
         <slot></slot>
@@ -36,11 +36,11 @@ export default {
   props: {
     isBegin: {
       type: Boolean,
-      required: true,
+      required: true
     },
     isEnd: {
       type: Boolean,
-      required: true,
+      required: true
     }
   },
   data() {

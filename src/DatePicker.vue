@@ -1,33 +1,33 @@
 <template>
   <BaseModal
+    ref="baseModalRef"
     :title="Translation['choiceDate']"
+    :is-begin="isBegin"
+    :is-end="isEnd"
     @next="next"
     @prev="prev"
-    :isBegin="isBegin"
-    :isEnd="isEnd"
-    ref="baseModalRef"
   >
     <Calendar
-      :beginDate="beginDate"
-      :countMonth="countMonth"
-      orientation="horizontal"
-      v-model="date"
-      :lang="Translation['lang']"
-      :changeRange="changeRange"
-      :type="type"
-      :startDisable="startDisable"
-      :endDisable="endDisable"
-      :employment="employment"
       ref="CalendarRef"
+      v-model="date"
+      :begin-date="beginDate"
+      :count-month="countMonth"
+      orientation="horizontal"
+      :lang="Translation['lang']"
+      :change-range="changeRange"
+      :type="type"
+      :start-disable="startDisable"
+      :end-disable="endDisable"
+      :employment="employment"
     />
     <div class="calendar-footer">
       <div
         class="calendar--reset"
-        @click="reset"
         :class="{
           'calendar--reset-visible':
             date instanceof Object && date.out && date.in
         }"
+        @click="reset"
       >
         {{ Translation["reset"] }}
       </div>
@@ -40,7 +40,8 @@ import Translation from "./locales.json";
 import Calendar from "./components/Calendar";
 import BaseModal from "./components/BaseModal";
 
-const BeginTimeFormat = (date = new Date()) => new Date(date.getFullYear(), date.getMonth(), 1);
+const BeginTimeFormat = (date = new Date()) =>
+  new Date(date.getFullYear(), date.getMonth(), 1);
 
 export default {
   name: "DatePicker",
@@ -96,6 +97,28 @@ export default {
       default: () => []
     }
   },
+  data() {
+    return {
+      countMonth: 1,
+      beginDate: BeginTimeFormat(),
+      date: {},
+      Translation: { ...Translation[this.lang], ...this.i18n[this.lang] },
+      isMobile: true
+    };
+  },
+  computed: {
+    isBegin() {
+      if (!this.startDisable) return false;
+      return this.startDisable.getTime() >= this.beginDate.getTime();
+    },
+    isEnd() {
+      if (!this.endDisable) return false;
+      const nextDate = new Date(this.beginDate).setMonth(
+        this.beginDate.getMonth() + this.countMonth
+      );
+      return nextDate >= this.endDisable.getTime();
+    }
+  },
   watch: {
     date: {
       deep: true,
@@ -119,71 +142,6 @@ export default {
       }
     }
   },
-  methods: {
-    toggle() {
-      if (this.$refs.baseModalRef.visible)
-        this.close();
-      else 
-        this.show();
-    },
-    show() {
-      this.handleWindowResize()
-      if (this.$attrs.value instanceof Date) {
-        this.beginDate = BeginTimeFormat(this.$attrs.value || new Date());
-      } else if (this.$attrs.value instanceof Object) {
-        this.beginDate = BeginTimeFormat(this.$attrs.value.in || this.$attrs.value.out || new Date());
-      }
-      this.$emit("show");
-      this.$refs.baseModalRef.show();
-    },
-    close(value) {
-      this.$emit("close", value);
-      this.$refs.baseModalRef.close();
-    },
-    prev() {
-      this.beginDate = new Date(
-        new Date(this.beginDate).setMonth(this.beginDate.getMonth() - this.countMonth)
-      )
-    },
-    next() {
-      this.beginDate = new Date(
-        new Date(this.beginDate).setMonth(this.beginDate.getMonth() + this.countMonth)
-      )
-    },
-    reset() {
-
-      if (this.date instanceof Date) {
-        this.date = null
-      } else if (this.$attrs.value instanceof Object) {
-        this.$set(this.date, "in", null);
-        this.$set(this.date, "out", null);
-      }
-      this.$refs.CalendarRef.reset();
-      this.$emit("input", this.date);
-      this.$emit("change", this.date);
-    },
-    handleWindowResize() {
-      if (typeof process !== 'undefined' &&
-        (
-          process.server ||
-          process.SERVER_BUILD ||
-          (process.env && process.env.VUE_ENV === 'server')
-        )
-      ) {
-        this.isMobile = true;
-        this.countMonth = 1;
-        return
-      }
-      if (window.innerWidth <= 768) {
-        this.isMobile = true;
-        this.countMonth = 1;
-      } else {
-        this.isMobile = false;
-        this.countMonth = this.size == "small" ? 1 : 2;
-      }
-      return this.isMobile;
-    }
-  },
   mounted() {
     if (this.$attrs.value instanceof Date) {
       this.$set(this.date, "single", this.$attrs.value);
@@ -196,25 +154,72 @@ export default {
   destroyed() {
     window.removeEventListener("resize", this.handleWindowResize);
   },
-  computed: {
-    isBegin() {
-      if(!this.startDisable) return false;
-      return this.startDisable.getTime() >= this.beginDate.getTime()
+  methods: {
+    toggle() {
+      if (this.$refs.baseModalRef.visible) this.close();
+      else this.show();
     },
-    isEnd() {
-      if(!this.endDisable) return false;
-      const nextDate = new Date(this.beginDate).setMonth(this.beginDate.getMonth() + this.countMonth)
-      return nextDate >= this.endDisable.getTime()
+    show() {
+      this.handleWindowResize();
+      if (this.$attrs.value instanceof Date) {
+        this.beginDate = BeginTimeFormat(this.$attrs.value || new Date());
+      } else if (this.$attrs.value instanceof Object) {
+        this.beginDate = BeginTimeFormat(
+          this.$attrs.value.in || this.$attrs.value.out || new Date()
+        );
+      }
+      this.$emit("show");
+      this.$refs.baseModalRef.show();
     },
-  },
-  data() {
-    return {
-      countMonth: 1,
-      beginDate: BeginTimeFormat(),
-      date: {},
-      Translation: { ...Translation[this.lang], ...this.i18n[this.lang] },
-      isMobile: true
-    };
+    close(value) {
+      this.$emit("close", value);
+      this.$refs.baseModalRef.close();
+    },
+    prev() {
+      this.beginDate = new Date(
+        new Date(this.beginDate).setMonth(
+          this.beginDate.getMonth() - this.countMonth
+        )
+      );
+    },
+    next() {
+      this.beginDate = new Date(
+        new Date(this.beginDate).setMonth(
+          this.beginDate.getMonth() + this.countMonth
+        )
+      );
+    },
+    reset() {
+      if (this.date instanceof Date) {
+        this.date = null;
+      } else if (this.$attrs.value instanceof Object) {
+        this.$set(this.date, "in", null);
+        this.$set(this.date, "out", null);
+      }
+      this.$refs.CalendarRef.reset();
+      this.$emit("input", this.date);
+      this.$emit("change", this.date);
+    },
+    handleWindowResize() {
+      if (
+        typeof process !== "undefined" &&
+        (process.server ||
+          process.SERVER_BUILD ||
+          (process.env && process.env.VUE_ENV === "server"))
+      ) {
+        this.isMobile = true;
+        this.countMonth = 1;
+        return;
+      }
+      if (window.innerWidth <= 768) {
+        this.isMobile = true;
+        this.countMonth = 1;
+      } else {
+        this.isMobile = false;
+        this.countMonth = this.size == "small" ? 1 : 2;
+      }
+      return this.isMobile;
+    }
   }
 };
 </script>

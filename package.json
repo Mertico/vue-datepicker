@@ -3,26 +3,13 @@
   "version": "0.0.2",
   "private": true,
   "author": "Alexandr Pestryakov <mertico@yandex.ru>",
-  "license": "MIT",
-  "keywords": [
-    "Vue",
-    "date",
-    "datepicker"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Mertico/vue-datepicker"
-  },
-  "bugs": {
-    "url": "https://github.com/Mertico/vue-datepicker/issues"
-  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --dest lib  --name vue-datepicker ./src/index.js",
-    "build:wc": "vue-cli-service build --target wc --dest wc --name vue-datepicker ./src/DatePicker.vue",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "build:lib": "vue-cli-service build --target lib --dest lib  --name vue-datepicker ./src/index.js",
+    "build:wc": "vue-cli-service build --target wc --dest wc --name vue-datepicker ./src/DatePicker.vue"
   },
   "main": "lib/vue-datepicker.common.js",
   "unpkg": "lib/vue-datepicker.umd.min.js",
@@ -31,33 +18,41 @@
     "src"
   ],
   "dependencies": {
-    "lodash-es": "^4.17.15",
+    "core-js": "^3.3.2",
+    "lodash": "^4.17.15",
     "vue": "^2.6.10",
-    "vue-i18n": "^8.14.1"
+    "vue-i18n": "^8.15.0"
   },
   "devDependencies": {
     "@kazupon/vue-i18n-loader": "^0.4.1",
-    "@vue/cli-plugin-babel": "^3.11.0",
-    "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-plugin-unit-jest": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-plugin-babel": "^4.0.5",
+    "@vue/cli-plugin-eslint": "^4.0.5",
+    "@vue/cli-plugin-unit-jest": "^4.0.5",
+    "@vue/cli-service": "^4.0.5",
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-core": "6.26.3",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-plugin-lodash": "^3.3.4",
-    "babel-preset-minify": "^0.5.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "imagemin-gifsicle": "^6.0.1",
-    "imagemin-mozjpeg": "^8.0.0",
-    "imagemin-pngquant": "^8.0.0",
-    "imagemin-svgo": "^7.0.0",
-    "imagemin-webpack": "^5.1.0",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.1.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
     "vue-cli-plugin-i18n": "^0.6.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.10"
+  },
+  "bugs": {
+    "url": "https://github.com/Mertico/vue-datepicker/issues"
+  },
+  "keywords": [
+    "Vue",
+    "date",
+    "datepicker"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mertico/vue-datepicker"
   }
 }

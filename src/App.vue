@@ -5,21 +5,21 @@
       Выбраная дата: {{ datePreset }}
     </div>
 
-    <DatePicker ref="DatePickerIn" changeRange="in" v-model="date" />
+    <DatePicker ref="DatePickerIn" v-model="date" change-range="in" />
     <div @click="$refs.DatePickerIn.show()">Только левая дата: {{ date }}</div>
-    <DatePicker ref="DatePickerOut" changeRange="out" v-model="date" />
+    <DatePicker ref="DatePickerOut" v-model="date" change-range="out" />
     <div @click="$refs.DatePickerOut.show()">
       Только правая дата: {{ date }}
     </div>
 
-    <DatePicker ref="DatePicker2" lang="en" v-model="date2" />
+    <DatePicker ref="DatePicker2" v-model="date2" lang="en" />
     <div @click="$refs.DatePicker2.show()">Choice date #2: {{ date2 }}</div>
 
     <DatePicker
       ref="DatePickerstartDisable"
       v-model="datestartDisable"
-      :startDisable="new Date('2019-02-10')"
-      :endDisable="new Date('2020-03-10')"
+      :start-disable="new Date('2019-02-10')"
+      :end-disable="new Date('2020-03-10')"
     />
     <div @click="$refs.DatePickerstartDisable.show()">
       Выбраная дата ВЫКЛ даты: {{ datestartDisable }}
@@ -27,19 +27,19 @@
 
     <DatePicker
       ref="DatePickerSingle"
+      v-model="dateSingle"
       lang="en"
       type="single"
-      v-model="dateSingle"
     />
     <div @click="$refs.DatePickerSingle.show()">Single: {{ dateSingle }}</div>
 
     <DatePicker
       ref="DatePickerTranslation"
+      v-model="dateTranslation"
       size="small"
       lang="en"
       type="single"
       :i18n="i18n"
-      v-model="dateTranslation"
     />
     <div @click="$refs.DatePickerTranslation.show()">
       Translation Single: {{ dateTranslation }}
@@ -47,10 +47,10 @@
 
     <DatePicker
       ref="DatePickerTranslation2"
+      v-model="dateTranslation"
       lang="en"
       type="single"
       :i18n="i18n"
-      v-model="dateTranslation"
     />
     <div @click="$refs.DatePickerTranslation2.show()">
       Translation Single2: {{ dateTranslation }}
@@ -65,20 +65,13 @@
       Занятые даты: {{ datePreset }}
     </div>
 
-
-
-
-
-
-
-
-    <br/>
+    <br />
 
     <DatePicker
       ref="DatePickerOneMonthSingle"
       v-model="DatePickerOneMonthSingle"
       :employment="employment"
-      :showHeader="false"
+      :show-header="false"
       size="small"
       type="single"
     />
@@ -86,14 +79,13 @@
       Одномесячный на одну дату: {{ DatePickerOneMonthSingle }}
     </div>
 
-
-    <br/>
+    <br />
 
     <DatePicker
       ref="DatePickerOneMonth"
       v-model="dateOneMonth"
       :employment="employment"
-      :showHeader="false"
+      :show-header="false"
       size="small"
     />
     <div @click="$refs.DatePickerOneMonth.show()">
@@ -106,11 +98,10 @@
 import DatePicker from "./DatePicker";
 
 export default {
-  name: "app",
+  name: "App",
   components: {
     DatePicker
   },
-  created() {},
   data() {
     return {
       i18n: { en: { reset: "Свой текст удаления" } },
@@ -145,7 +136,8 @@ export default {
       dateOneMonth: {},
       DatePickerOneMonthSingle: new Date("2020-09-30 12:00:00")
     };
-  }
+  },
+  created() {}
 };
 </script>
 
