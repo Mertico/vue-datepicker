@@ -11,6 +11,7 @@
         :dateMonth="date"
         :lang="lang"
         :startDisable="startDisable"
+        :endDisable="endDisable"
         :key="date.toLocaleString()"
         :employment="employment"
       />
@@ -65,6 +66,9 @@ export default {
     startDisable: {
       type: Date,
       default: () => new Date()
+    },
+    endDisable: {
+      type: Date
     },
     employment: {
       type: Array,

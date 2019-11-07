@@ -32,7 +32,10 @@ export default {
       type: Date,
       required: true,
       default: () => new Date()
-    }
+    },
+    endDisable: {
+      type: Date
+    },
   },
   computed: {
     dateIn() {
@@ -91,6 +94,8 @@ export default {
     isDisabled() {
       return (
         this.timeCurrentDay.getTime() + 86400000 < this.startDisable.getTime() // -1 день (в мсек)
+      ) || (
+        this.endDisable && this.timeCurrentDay.getTime() > this.endDisable.getTime()
       );
     }
   },

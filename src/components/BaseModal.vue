@@ -19,8 +19,8 @@
           {{ Translation["closeText"] }}
         </div>
       </div>
-      <div class="base-modal-prev" @click="prev()"></div>
-      <div class="base-modal-next" @click="next()"></div>
+      <div class="base-modal-prev" @click="prev()" v-show="!isBegin"></div>
+      <div class="base-modal-next" @click="next()" v-show="!isEnd"></div>
 
       <div class="base-modal-body">
         <slot></slot>
@@ -33,6 +33,16 @@ import Translation from "./../locales.json";
 
 export default {
   name: "BaseModal",
+  props: {
+    isBegin: {
+      type: Boolean,
+      required: true,
+    },
+    isEnd: {
+      type: Boolean,
+      required: true,
+    }
+  },
   data() {
     return {
       visible: false,

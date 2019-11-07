@@ -19,6 +19,7 @@
           :key="date"
           v-for="date in weeks"
           :startDisable="startDisable"
+          :endDisable="endDisable"
           :class="
             fillEmployment[date] && `day-employment__${fillEmployment[date]}`
           "
@@ -122,6 +123,9 @@ export default {
       type: Date,
       required: true,
       default: () => new Date()
+    },
+    endDisable: {
+      type: Date
     },
     lang: {
       default: "ru-RU",

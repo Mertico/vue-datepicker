@@ -3,6 +3,8 @@
     :title="Translation['choiceDate']"
     @next="next"
     @prev="prev"
+    :isBegin="isBegin"
+    :isEnd="isEnd"
     ref="baseModalRef"
   >
     <Calendar
@@ -14,6 +16,7 @@
       :changeRange="changeRange"
       :type="type"
       :startDisable="startDisable"
+      :endDisable="endDisable"
       :employment="employment"
       ref="CalendarRef"
     />
@@ -74,6 +77,9 @@ export default {
     startDisable: {
       type: Date,
       default: () => new Date()
+    },
+    endDisable: {
+      type: Date
     },
     changeRange: {
       default: null,
@@ -189,6 +195,17 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.handleWindowResize);
+  },
+  computed: {
+    isBegin() {
+      if(!this.startDisable) return false;
+      return this.startDisable.getTime() >= this.beginDate.getTime()
+    },
+    isEnd() {
+      if(!this.endDisable) return false;
+      const nextDate = new Date(this.beginDate).setMonth(this.beginDate.getMonth() + this.countMonth)
+      return nextDate >= this.endDisable.getTime()
+    },
   },
   data() {
     return {

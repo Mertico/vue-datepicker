@@ -19,6 +19,7 @@
       ref="DatePickerstartDisable"
       v-model="datestartDisable"
       :startDisable="new Date('2019-02-10')"
+      :endDisable="new Date('2020-03-10')"
     />
     <div @click="$refs.DatePickerstartDisable.show()">
       Выбраная дата ВЫКЛ даты: {{ datestartDisable }}
