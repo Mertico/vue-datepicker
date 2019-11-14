@@ -1,3 +1,5 @@
+
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 module.exports = {
   lintOnSave: false, //process.env.NODE_ENV !== 'production',
   chainWebpack: config => {
@@ -37,7 +39,9 @@ module.exports = {
       filename: "vue-datepicker.min.js"
       // libraryTarget: 'commonjs2'
     },
-    plugins: []
+    plugins: [
+      new LodashModuleReplacementPlugin(),
+    ]
   },
   // css: {
   //   extract: false

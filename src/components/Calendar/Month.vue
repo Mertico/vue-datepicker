@@ -32,7 +32,10 @@
 
 <script>
 import Day from "./Day.vue";
-import _ from "lodash";
+import range from "lodash/range";
+import chunk from "lodash/chunk";
+import flatten from "lodash/flatten";
+
 
 export default {
   name: "Month",
@@ -77,11 +80,11 @@ export default {
         this.dateMonth.getMonth() + 1,
         0
       );
-      days = days.concat(_.range(1, lastDay.getDate() + 1)); // Заполняем днями месяца
+      days = days.concat(range(1, lastDay.getDate() + 1)); // Заполняем днями месяца
       if (lastDay.getDay() != 0)
         days = days.concat(Array(7 - (days.length % 7))); //Воссоздаем пропущеные дни недели на конец месяца (+1 день недели для сдвига дней недель)
 
-      return _.chunk(days, 7); // Разбиваем по неделям
+      return chunk(days, 7); // Разбиваем по неделям
     },
     weekday() {
       return this.days[1].map(date =>
@@ -101,7 +104,7 @@ export default {
 
       const startTime = this.dateMonth.getTime();
 
-      const fill = _.flatten(this.days)
+      const fill = flatten(this.days)
         .filter(v => v)
         .map(day => {
           if (!day) return;
